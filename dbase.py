@@ -66,6 +66,20 @@ c.execute("INSERT INTO personnel_schools (personnel_id, school_id) VALUES (1, 2)
 c.execute("INSERT INTO personnel_schools (personnel_id, school_id) VALUES (3, 2)")
 
 
+# Создание таблицы для связи между учителями и предметами
+c.execute('''CREATE TABLE IF NOT EXISTS teacher_subjects
+             (teacher_id INTEGER,
+             subject_id INTEGER,
+             FOREIGN KEY (teacher_id) REFERENCES personnel(id),
+             FOREIGN KEY (subject_id) REFERENCES subjects(id))''')
+
+# Пример добавления связей между учителями и предметами
+c.execute("INSERT INTO teacher_subjects (teacher_id, subject_id) VALUES (1, 1)")
+c.execute("INSERT INTO teacher_subjects (teacher_id, subject_id) VALUES (1, 2)")
+c.execute("INSERT INTO teacher_subjects (teacher_id, subject_id) VALUES (2, 3)")
+c.execute("INSERT INTO teacher_subjects (teacher_id, subject_id) VALUES (3, 4)")
+c.execute("INSERT INTO teacher_subjects (teacher_id, subject_id) VALUES (4, 5)")
+c.execute("INSERT INTO teacher_subjects (teacher_id, subject_id) VALUES (5, 6)")
 
 # Создание таблицы для классов
 c.execute('''CREATE TABLE IF NOT EXISTS classes
@@ -97,6 +111,33 @@ c.execute("INSERT INTO students (name, class_id) VALUES ('Иванов Иван'
 c.execute("INSERT INTO students (name, class_id) VALUES ('Петров Петр', 2)")
 c.execute("INSERT INTO students (name, class_id) VALUES ('Сидорова Анна', 1)")
 c.execute("INSERT INTO students (name, class_id) VALUES ('Смирнова Елена', 2)")
+
+
+# Создание таблицы для кафедр
+c.execute('''CREATE TABLE IF NOT EXISTS departments
+             (id INTEGER PRIMARY KEY AUTOINCREMENT,
+             name TEXT NOT NULL)''')
+
+# Пример добавления данных в таблицу кафедр
+c.execute("INSERT INTO departments (name) VALUES ('Математика')")
+c.execute("INSERT INTO departments (name) VALUES ('История')")
+c.execute("INSERT INTO departments (name) VALUES ('Физика')")
+c.execute("INSERT INTO departments (name) VALUES ('Экономика')")
+
+# Создание таблицы для предметов
+c.execute('''CREATE TABLE IF NOT EXISTS subjects
+             (id INTEGER PRIMARY KEY AUTOINCREMENT,
+             name TEXT NOT NULL,
+             department_id INTEGER,
+             FOREIGN KEY (department_id) REFERENCES departments(id))''')
+
+# Пример добавления данных в таблицу предметов
+c.execute("INSERT INTO subjects (name, department_id) VALUES ('Алгебра', 1)")
+c.execute("INSERT INTO subjects (name, department_id) VALUES ('Геометрия', 1)")
+c.execute("INSERT INTO subjects (name, department_id) VALUES ('История России', 2)")
+c.execute("INSERT INTO subjects (name, department_id) VALUES ('Мировая история', 2)")
+c.execute("INSERT INTO subjects (name, department_id) VALUES ('Механика', 3)")
+c.execute("INSERT INTO subjects (name, department_id) VALUES ('Макроэкономика', 4)")
 
 # Сохранение изменений и закрытие соединения
 conn.commit()
