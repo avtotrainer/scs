@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:scs}//home/avto/scs",
+            "name": "scs"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
